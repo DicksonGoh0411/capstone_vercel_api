@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-  connectionString: DATABASE_URL,
+  connectionString: process.env.DATABASE_URL,
   ssl: {
-    require: true,
+    rejectUnauthorized: false,
   },
 });
 
@@ -161,8 +161,8 @@ app.delete("/bookings/:id", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/index.html"));
-});
+  res.send("Welcome to the API");
+})
 
 app.listen(3000, () => {
   console.log("App is listening on port 3000");
